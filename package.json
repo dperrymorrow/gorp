@@ -1,0 +1,35 @@
+{
+  "name": "gorp",
+  "version": "1.0.0",
+  "description": "interactive git terminal",
+  "main": "index.js",
+  "bin": {
+    "gorp": "bin/index.js"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dperrymorrow/gorp.git"
+  },
+  "keywords": [
+    "git",
+    "node",
+    "interactive"
+  ],
+  "author": "David Morrow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dperrymorrow/gorp/issues"
+  },
+  "homepage": "https://github.com/dperrymorrow/gorp#readme",
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "eslint": "^4.12.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-unicorn": "^3.0.0",
+    "prettier": "^1.9.1"
+  }
+}
