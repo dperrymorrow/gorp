@@ -14,7 +14,7 @@ else listCmds();
 
 async function listCmds() {
   const currentBranch = await git.branch.current();
-  const dirtyFiles = await git.status.asArray();
+  const dirtyFiles = await git.status();
   const color = dirtyFiles.length ? "red" : "green";
   console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
 
