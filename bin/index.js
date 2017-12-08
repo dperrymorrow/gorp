@@ -6,11 +6,18 @@ const quiz = require("inquirer");
 const git = require("../lib/git");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
-const args = process.argv;
-const choice = _.last(args);
 
-if (choice in prompts) prompts[choice]();
-else listCmds();
+async function run() {
+  const args = process.argv;
+  const choice = _.last(args);
+
+  if (choice in prompts) {
+    await prompts[choice]();
+    listCmds();
+  } else {
+    listCmds();
+  }
+}
 
 async function listCmds() {
   const currentBranch = await git.branch.current();
@@ -33,3 +40,5 @@ process.on("unhandledRejection", (reason, p) => {
   console.log(chalk.red(reason), p);
   process.exit();
 });
+
+run();
