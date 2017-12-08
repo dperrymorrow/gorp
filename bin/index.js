@@ -3,7 +3,7 @@
 
 const _ = require("../lib/util/lodash");
 const quiz = require("inquirer");
-const git = require("../lib/git/git");
+const git = require("../lib/git");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
 const args = process.argv;
@@ -13,16 +13,16 @@ if (choice in prompts) prompts[choice]();
 else listCmds();
 
 async function listCmds() {
-  // const currentBranch = await git.branch.current();
-  // const dirtyFiles = await git.status();
-  // const color = dirtyFiles.length ? "red" : "green";
-  // console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
+  const currentBranch = await git.branch.current();
+  const dirtyFiles = await git.status.asArray();
+  const color = dirtyFiles.length ? "red" : "green";
+  console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
 
   const answer = await quiz.prompt({
     name: "task",
     type: "list",
     message: "Choose a command",
-    choices: Object.keys(prompts).sort(),
+    choices: Object.keys(prompts),
   });
 
   await prompts[answer.task]();
