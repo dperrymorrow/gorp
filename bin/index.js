@@ -1,19 +1,35 @@
 #!/usr/bin/env node
 "use strict";
 
-const args = process.argv;
-const git = require("../lib/git");
-const chalk = require("chalk");
 const _ = require("../lib/util/lodash");
+const quiz = require("inquirer");
+const git = require("../lib/git/git");
+const prompts = require("../lib/prompt");
+const chalk = require("chalk");
+const args = process.argv;
+const choice = _.last(args);
 
-const chosenCmd = _.last(args);
+if (choice in prompts) prompts[choice]();
+else listCmds();
 
-const cmds = {
-  async status() {
-    const status = await git.status();
-    console.log(status);
-  },
-};
+async function listCmds() {
+  // const currentBranch = await git.branch.current();
+  // const dirtyFiles = await git.status();
+  // const color = dirtyFiles.length ? "red" : "green";
+  // console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
 
-if (chosenCmd in cmds) cmds[chosenCmd]();
-else console.log(Object.keys(cmds).sort());
+  const answer = await quiz.prompt({
+    name: "task",
+    type: "list",
+    message: "Choose a command",
+    choices: Object.keys(prompts).sort(),
+  });
+
+  await prompts[answer.task]();
+  listCmds();
+}
+
+process.on("unhandledRejection", (reason, p) => {
+  console.log(chalk.red(reason), p);
+  process.exit();
+});
