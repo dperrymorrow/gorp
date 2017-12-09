@@ -9,12 +9,12 @@ const chalk = require("chalk");
 
 async function run() {
   const args = process.argv;
-  const choice = _.last(args);
+  const flag = _.last(args);
 
-  const actions = await prompts.getPrompts();
-
-  if (choice in prompts) {
-    await actions[choice]();
+  const choices = await prompts();
+  const match = choices.find(choice => choice.cmd === flag);
+  if (match) {
+    await match.value();
     listCmds();
   } else {
     listCmds();
@@ -23,23 +23,20 @@ async function run() {
 
 async function listCmds() {
   const currentBranch = await git.branch.current();
-  const actions = await prompts.getPrompts();
+  const choices = await prompts();
   const color = (await git.isDirty()) ? "red" : "green";
 
   console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
 
   const answer = await quiz.prompt({
     name: "task",
+    pageSize: 20,
     type: "list",
     message: "Choose a command",
-    choices: Object.keys(actions)
-      .map(key => _.upperFirst(key))
-      .concat([new quiz.Separator(), "Quit"]),
+    choices,
   });
 
-  if (answer.task === "Quit") process.exit();
-
-  await actions[answer.task.toLowerCase()]();
+  await answer.task();
   listCmds();
 }
 
