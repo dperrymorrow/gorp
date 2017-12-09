@@ -11,8 +11,10 @@ async function run() {
   const args = process.argv;
   const choice = _.last(args);
 
+  const actions = await prompts.getPrompts();
+
   if (choice in prompts) {
-    await prompts[choice]();
+    await actions[choice]();
     listCmds();
   } else {
     listCmds();
@@ -21,18 +23,23 @@ async function run() {
 
 async function listCmds() {
   const currentBranch = await git.branch.current();
-  const dirtyFiles = await git.status();
-  const color = dirtyFiles.length ? "red" : "green";
+  const actions = await prompts.getPrompts();
+  const color = (await git.isDirty()) ? "red" : "green";
+
   console.log(chalk.green("➜"), " On branch:", chalk[color](currentBranch));
 
   const answer = await quiz.prompt({
     name: "task",
     type: "list",
     message: "Choose a command",
-    choices: Object.keys(prompts),
+    choices: Object.keys(actions)
+      .map(key => _.upperFirst(key))
+      .concat([new quiz.Separator(), "Quit"]),
   });
 
-  await prompts[answer.task]();
+  if (answer.task === "Quit") process.exit();
+
+  await actions[answer.task.toLowerCase()]();
   listCmds();
 }
 
