@@ -19,7 +19,7 @@ async function run(cmd = null) {
 async function listCmds() {
   const currentBranch = await git.branch.current();
   const choices = await prompts();
-  const color = (await git.isDirty()) ? "red" : "green";
+  const color = (await git.allClean()) ? "green" : "red";
 
   const answer = await quiz.prompt({
     name: "task",
