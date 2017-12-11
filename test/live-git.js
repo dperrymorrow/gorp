@@ -2,37 +2,49 @@
 
 const chalk = require("chalk");
 const term = require("../lib/terminal");
+const _ = require("../lib/util/lodash");
+
+let group;
 
 function trace(obj, prefix = "") {
   Object.keys(obj)
     .sort()
     .forEach(cmd => {
       if (typeof obj[cmd] !== "function") {
-        console.log(prefix, cmd);
-        trace(obj[cmd], " ├──");
+        console.log(`\n${prefix}`, chalk.yellow.bold(cmd));
+        trace(obj[cmd], " -");
+        console.log("");
       } else {
-        console.log(prefix, cmd);
+        console.log(prefix, chalk.blue(cmd));
       }
     });
 }
 
 trace(term.git);
 
-assert("git.branch.current", term.git.branch.current, String);
-assert("git.branch.remote", term.git.branch.remote, Array);
-assert("git.branch.local", term.git.branch.local, Array);
-assert("git.branch.ahead", term.git.branch.ahead, Number);
-assert("git.branch.behind", term.git.branch.behind, Number);
+group = "git.branch";
+assert(term.git.branch.current, String);
+assert(term.git.branch.remote, Array);
+assert(term.git.branch.local, Array);
+assert(term.git.branch.ahead, Number);
+assert(term.git.branch.behind, Number);
+assert(term.git.branch.validName, Boolean, ["foobar the branch"]);
 
-assert("git.status.changes", term.git.status.changes, Array);
-assert("git.status.allClean", term.git.status.allClean, Boolean);
-assert("git.status.dirtyCount", term.git.status.dirtyCount, Number);
-assert("git.status.stagedCount", term.git.status.stagedCount, Number);
+group = "git.status";
+assert(term.git.status.changes, Array);
+assert(term.git.status.allClean, Boolean);
+assert(term.git.status.dirtyCount, Number);
+assert(term.git.status.stagedCount, Number);
 
-async function assert(methodName, method, shouldBe) {
-  const response = await method();
+async function assert(method, shouldBe, args = []) {
+  const response = await method(...args).catch(console.log);
   const valid = response.constructor === shouldBe;
   const marker = valid ? chalk.green.bold("✓") : chalk.red.bold("✘");
-  methodName = valid ? chalk.green.bold(methodName) : chalk.red.bold(methodName);
-  console.log(`${marker} ${methodName}`, response);
+  const methodName = valid
+    ? chalk.green.bold(`${group}.${method.name}`)
+    : chalk.red.bold(`${group}.${method.name}`);
+
+  console.log(`${marker} ${methodName}`);
+  // if (!_.isEmpty(args)) console.log(args);
+  console.log(args, response);
 }
