@@ -3,7 +3,7 @@
 
 const _ = require("../lib/util/lodash");
 const quiz = require("inquirer");
-const git = require("../lib/git");
+const term = require("../lib/terminal");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
 const args = process.argv;
@@ -17,9 +17,9 @@ async function run(cmd = null) {
 }
 
 async function listCmds() {
-  const currentBranch = await git.branch.current();
+  const currentBranch = await term.git.branch.current();
   const choices = await prompts();
-  const color = (await git.allClean()) ? "green" : "red";
+  const color = (await term.git.status.allClean()) ? "green" : "red";
 
   const answer = await quiz.prompt({
     name: "task",
@@ -38,4 +38,33 @@ process.on("unhandledRejection", (reason, p) => {
   process.exit();
 });
 
-run(flag);
+if (flag === "--debug") {
+  debug(term.git);
+  runSafeGit();
+} else {
+  run(flag);
+}
+
+function debug(obj, prefix = "") {
+  Object.keys(obj).forEach(cmd => {
+    if (typeof obj[cmd] !== "function") {
+      console.log(prefix, cmd);
+      debug(obj[cmd], " ├──");
+    } else {
+      console.log(prefix, cmd);
+    }
+  });
+}
+
+async function runSafeGit() {
+  console.log("///// GIT OUTPUT /////");
+
+  ["current", "remote", "local", "ahead", "behind"].forEach(async cmd => {
+    const result = await term.git.branch[cmd]();
+    const color = result ? "green" : "red";
+    console.log(chalk[color].bold(`git.branch.${cmd}`), result);
+  });
+
+  // console.log(chalk.green.bold("git.log"));
+  // console.log(await term.git.log());
+}
