@@ -28,7 +28,6 @@ assert(term.git.branch.remote, Array);
 assert(term.git.branch.local, Array);
 assert(term.git.branch.ahead, Number);
 assert(term.git.branch.behind, Number);
-assert(term.git.branch.validName, Boolean, ["foobar the branch"]);
 
 group = "git.status";
 assert(term.git.status.changes, Array);
