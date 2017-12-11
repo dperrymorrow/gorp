@@ -7,7 +7,8 @@
     "gorp": "bin/index.js"
   },
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "test:git": "node test/live-git.js"
   },
   "repository": {
     "type": "git",

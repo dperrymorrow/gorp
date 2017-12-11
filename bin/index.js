@@ -38,33 +38,4 @@ process.on("unhandledRejection", (reason, p) => {
   process.exit();
 });
 
-if (flag === "--debug") {
-  debug(term.git);
-  runSafeGit();
-} else {
-  run(flag);
-}
-
-function debug(obj, prefix = "") {
-  Object.keys(obj).forEach(cmd => {
-    if (typeof obj[cmd] !== "function") {
-      console.log(prefix, cmd);
-      debug(obj[cmd], " ├──");
-    } else {
-      console.log(prefix, cmd);
-    }
-  });
-}
-
-async function runSafeGit() {
-  console.log("///// GIT OUTPUT /////");
-
-  ["current", "remote", "local", "ahead", "behind"].forEach(async cmd => {
-    const result = await term.git.branch[cmd]();
-    const color = result ? "green" : "red";
-    console.log(chalk[color].bold(`git.branch.${cmd}`), result);
-  });
-
-  // console.log(chalk.green.bold("git.log"));
-  // console.log(await term.git.log());
-}
+run(flag);
