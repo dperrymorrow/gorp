@@ -1,0 +1,6 @@
+asdf-adfadf-asdf-a-asdf
+asdf-adfs
+asdf-asdfadf--asdf
+* master
+this-is-an-invalid-branch-name
+this-is-my-branch-name

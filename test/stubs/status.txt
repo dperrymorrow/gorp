@@ -1,0 +1,7 @@
+## master...origin/master [ahead 7, behind 1]
+ M lib/terminal/branch.js
+ M lib/terminal/index.js
+ M lib/util/parsing.js
+ M package.json
+?? test/stubs/
+?? test/terminal/
