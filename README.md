@@ -2,4 +2,4 @@
 interactive git terminal
 
 
-good stuff coming soon
+good stuff coming soon...
