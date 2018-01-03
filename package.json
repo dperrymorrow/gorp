@@ -46,14 +46,20 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "child-process-promise": "^2.2.1",
+    "diff2html": "^2.3.2",
     "git-clean": "0.0.9",
     "inquirer": "^4.0.1",
+    "install": "^0.10.2",
     "lodash.isempty": "^4.4.0",
     "lodash.kebabcase": "^4.1.1",
     "lodash.last": "^3.0.0",
     "lodash.throttle": "^4.1.1",
     "lodash.uniq": "^4.5.0",
     "lodash.upperfirst": "^4.3.1",
-    "log-update": "^2.3.0"
+    "log-update": "^2.3.0",
+    "npm": "^5.6.0",
+    "opn": "^5.1.0",
+    "pretty-diff": "^0.7.0",
+    "tmp": "0.0.33"
   }
 }
