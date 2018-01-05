@@ -6,7 +6,6 @@ const quiz = require("inquirer");
 const term = require("../lib/terminal");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
-const readline = require("readline");
 const args = process.argv;
 const flag = _.last(args);
 
@@ -21,13 +20,6 @@ async function listCmds() {
   const currentBranch = await term.git.branch.current();
   const choices = await prompts();
   const color = (await term.git.status.allClean()) ? "green" : "red";
-
-  readline.emitKeypressEvents(process.stdin);
-  const ui = new quiz.ui.BottomBar();
-
-  process.stdin.on("keypress", (ch, key) => {
-    if (key && key.name === "escape") ui.close();
-  });
 
   const answer = await quiz.prompt({
     name: "task",
