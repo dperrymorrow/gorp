@@ -21,13 +21,15 @@ async function listCmds() {
   const choices = await prompts();
   const color = (await term.git.status.allClean()) ? "green" : "red";
 
+  const ui = new quiz.ui.BottomBar();
+  ui.write(`on branch ${chalk[color].bold.italic(currentBranch)}\n`);
+
   const answer = await quiz.prompt({
     name: "task",
     pageSize: 20,
     type: "list",
     message: "Choose a command",
     choices,
-    prefix: chalk.white.bold("(") + chalk[color].bold(currentBranch) + chalk.white.bold(")"),
   });
 
   run(await answer.task());
