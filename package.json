@@ -56,7 +56,6 @@
     "lodash.throttle": "^4.1.1",
     "lodash.uniq": "^4.5.0",
     "lodash.upperfirst": "^4.3.1",
-    "log-update": "^2.3.0",
     "npm": "^5.6.0",
     "opn": "^5.1.0",
     "tmp": "0.0.33"
