@@ -23,7 +23,7 @@ async function listCmds() {
 
   const answer = await quiz.prompt({
     name: "task",
-    pageSize: 20,
+    pageSize: 50,
     type: "list",
     message: "Choose a command",
     choices,
