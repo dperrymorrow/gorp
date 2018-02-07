@@ -1,3 +1,5 @@
+![Gorp](https://user-images.githubusercontent.com/64978/35944564-b95488bc-0c11-11e8-84b3-98f5fedd4dca.png)
+
 I use Git on an hourly basis, and sometimes it feels a bit tedious to me using the command line. 9 times out of 10 I am using a handfull of common commands. Things like making a new branch, staging changes, ect.
 
 I've tried using some Git GUI applications such as Github desktop and others. But I often find when using a GUI, I always end up using the terminal at some point, defeating the purpose of using the GUI.
@@ -6,7 +8,7 @@ I've tried using some Git GUI applications such as Github desktop and others. Bu
 
 The main thing that I love about using a GUI is viewing the changes in a Github style diff. I had the idea for Gorp of bridging the gap between using the terminal, and a full on GUI. Gorp gives you all the common Git tasks with a couple of keystrokes, and also provides full Github style diffs shown in a launched browser.
 
-![Diff](http://newfinds.com/images/projects/gorp/diff.png)
+![Diff](https://user-images.githubusercontent.com/64978/35944593-d2ac20a4-0c11-11e8-8294-ad90475db87b.png)
 
 
 ### Install:
