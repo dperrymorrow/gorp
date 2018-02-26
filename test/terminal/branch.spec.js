@@ -49,9 +49,5 @@ test("gets list of branches", async t => {
 test("gets list of branches from remote", async t => {
   const branches = await term.git.branch.remote();
   t.is(branches.length, 25);
-  t.true(branches.includes("origin/master"));
-
-  branches.forEach(branch => {
-    t.true(branch.includes("origin/"));
-  });
+  t.true(branches.includes("master"));
 });
