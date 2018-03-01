@@ -4,10 +4,13 @@
 const _ = require("../lib/util/lodash");
 const quiz = require("inquirer");
 const term = require("../lib/terminal");
+const cleanUp = require("node-cleanup");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
 const args = process.argv;
 const flag = _.last(args);
+
+cleanUp();
 
 async function run(cmd = null) {
   const choices = await prompts();

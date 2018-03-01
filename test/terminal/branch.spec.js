@@ -1,21 +1,21 @@
 "use strict";
 
-const test = require("ava");
-const term = require("../../lib/terminal");
 const git = require("../../lib/terminal/git");
-const sinon = require("sinon");
-
+const term = require("../../lib/terminal");
 const stubs = require("../stubs");
-let sandbox;
+const sinon = require("sinon");
+const test = require("ava");
+const cleanUp = require("node-cleanup");
+cleanUp();
 
 test.beforeEach(t => {
-  sandbox = sinon.sandbox.create();
-  sandbox.stub(git, "status").resolves(stubs.status);
-  sandbox.stub(git.branch, "local").resolves(stubs.branch.local);
-  sandbox.stub(git.branch, "remote").resolves(stubs.branch.remote);
+  t.context.sandbox = sinon.sandbox.create();
+  t.context.sandbox.stub(git, "status").resolves(stubs.status);
+  t.context.sandbox.stub(git.branch, "local").resolves(stubs.branch.local);
+  t.context.sandbox.stub(git.branch, "remote").resolves(stubs.branch.remote);
 });
 
-test.afterEach.always(() => sandbox.restore());
+test.afterEach.always(t => t.context.sandbox.restore());
 
 test("behind count if present", async t => {
   t.is(await term.git.branch.ahead(), 7);
