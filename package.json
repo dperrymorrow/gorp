@@ -31,12 +31,57 @@
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-unicorn": "^3.0.0",
-    "nyc": "^11.3.0",
+    "nyc": "^11.4.1",
     "prettier": "^1.9.1",
     "sinon": "^4.1.3"
   },
+  "nyc": {
+    "watermarks": {
+      "lines": [
+        70,
+        95
+      ],
+      "functions": [
+        70,
+        95
+      ],
+      "branches": [
+        70,
+        95
+      ],
+      "statements": [
+        70,
+        95
+      ]
+    },
+    "check-coverage": true,
+    "statements": 50,
+    "branches": 42,
+    "functions": 25,
+    "lines": 60,
+    "include": [
+      "lib"
+    ],
+    "exclude": [
+      "node_modules",
+      "lib/util/lodash.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "text"
+    ],
+    "cache": true,
+    "all": true,
+    "report-dir": "./coverage"
+  },
   "ava": {
-    "require": [],
+    "require": [
+      "./test/setup.js"
+    ],
     "files": [
       "./test/**/*.spec.js"
     ],

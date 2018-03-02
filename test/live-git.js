@@ -20,20 +20,20 @@ function trace(obj, prefix = "") {
     });
 }
 
-trace(term.git);
+trace(term);
 
 group = "git.branch";
-assert(term.git.branch.current, String);
-assert(term.git.branch.remote, Array);
-assert(term.git.branch.local, Array);
-assert(term.git.branch.ahead, Number);
-assert(term.git.branch.behind, Number);
+assert(term.branch.current, String);
+assert(term.branch.remote, Array);
+assert(term.branch.local, Array);
+assert(term.branch.ahead, Number);
+assert(term.branch.behind, Number);
 
 group = "git.status";
-assert(term.git.status.changes, Array);
-assert(term.git.status.allClean, Boolean);
-assert(term.git.status.dirtyCount, Number);
-assert(term.git.status.stagedCount, Number);
+assert(term.status.changes, Array);
+assert(term.status.allClean, Boolean);
+assert(term.status.dirtyCount, Number);
+assert(term.status.stagedCount, Number);
 
 async function assert(method, shouldBe, args = []) {
   const response = await method(...args).catch(console.log);

@@ -20,9 +20,9 @@ async function run(cmd = null) {
 }
 
 async function listCmds() {
-  const currentBranch = await term.git.branch.current();
+  const currentBranch = await term.branch.current();
   const choices = await prompts();
-  const color = (await term.git.status.allClean()) ? "green" : "red";
+  const color = (await term.status.allClean()) ? "green" : "red";
 
   const answer = await quiz.prompt({
     name: "task",
