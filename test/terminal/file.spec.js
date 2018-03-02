@@ -48,3 +48,18 @@ test("re-naming files", async t => {
   await term.file.rename(["foo.txt", "bar.txt"]);
   t.is(git.file.mv.callCount, 2);
 });
+
+test("defaults to kebabCase", async t => {
+  await term.file.rename("fooBar.txt");
+  t.is(git.file.mv.lastCall.args[1], "foo-bar.txt");
+});
+
+test("supports snake case", async t => {
+  await term.file.rename("fooBar.txt", "snakeCase");
+  t.is(git.file.mv.lastCall.args[1], "foo_bar.txt");
+});
+
+test("supports camel case", async t => {
+  await term.file.rename("fooBar.txt", "camelCase");
+  t.is(git.file.mv.lastCall.args[1], "fooBar.txt");
+});
