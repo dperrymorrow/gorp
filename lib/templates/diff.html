@@ -14,7 +14,7 @@
 
     <style media="screen">
       body {
-        font-family:Helvetica,sans-serif;
+        font-family: Helvetica, sans-serif;
       }
     </style>
   </head>
@@ -25,11 +25,19 @@
 
     <script>
       $(document).ready(function() {
-        var diff2htmlUi = new Diff2HtmlUI({diff: document.getElementById("rawDiff").innerHTML});
+        const diff = document.getElementById("rawDiff").content.textContent;
+        if (diff === "") return;
+        const diff2htmlUi = new Diff2HtmlUI({ diff: diff });
         document.getElementById("rawDiff").remove();
-        diff2htmlUi.draw('#diff', { inputFormat: 'json', outputFormat: "side-by-side", showFiles: true, matching: 'lines' });
-        diff2htmlUi.highlightCode('#diff');
+        diff2htmlUi.draw("#diff", {
+          inputFormat: "json",
+          outputFormat: "side-by-side",
+          showFiles: true,
+          matching: "lines",
+        });
+        diff2htmlUi.highlightCode("#diff");
       });
     </script>
+
   </body>
 </html>
