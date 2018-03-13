@@ -1,13 +1,39 @@
+
+<!DOCTYPE html>
+
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/diff2html/2.3.3/diff2html.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff2html/2.3.3/diff2html.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff2html/2.3.3/diff2html-ui.js"></script>
+
     <style media="screen">
-      {{ diffCss }}
+      body {
+        font-size:16px;
+        font-family:Helvetica,sans-serif;
+        font-weight:300;
+        line-height:1.6;
+        color:#293a46;
+      }
     </style>
   </head>
 
   <body>
-    <div id="diff">
-      {{ yield }}
-    </div>
+    <template id="rawDiff">{{ raw }}</template>
+    <div id="diff"></div>
+
+    <script>
+      $(document).ready(function() {
+        var diff2htmlUi = new Diff2HtmlUI({diff: document.getElementById("rawDiff").innerHTML});
+        document.getElementById("rawDiff").remove();
+        diff2htmlUi.draw('#diff', { inputFormat: 'json', outputFormat: "side-by-side", showFiles: true, matching: 'lines' });
+        diff2htmlUi.highlightCode('#diff');
+      });
+    </script>
   </body>
 </html>
