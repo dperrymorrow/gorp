@@ -1,6 +1,6 @@
 "use strict";
 
-const git = require("../../lib/terminal/git");
+const git = require("../../lib/git");
 const term = require("../../lib/terminal");
 const stubs = require("../stubs");
 const sinon = require("sinon");
@@ -9,6 +9,9 @@ const fs = require("fs");
 
 test.beforeEach(t => {
   t.context.sandbox = sinon.sandbox.create();
+  t.context.sandbox
+    .stub(childProcess, "exec")
+    .rejects(`You need to stub git or childProcess.exec.`);
   t.context.sandbox.stub(git, "status").resolves(stubs.status);
 });
 
