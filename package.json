@@ -1,6 +1,6 @@
 {
   "name": "gorp",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "interactive git terminal",
   "main": "index.js",
   "bin": {
