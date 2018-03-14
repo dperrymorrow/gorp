@@ -14,6 +14,21 @@ test.beforeEach(t => {
     .rejects(`You need to stub git or childProcess.exec.`);
 });
 
+function _findMethod(str) {
+  let target = git;
+  const segs = str
+    .split(".")
+    .splice(0, 1)
+    .forEach(seg => (target = target[seg]));
+  return target;
+}
+
+function _findMethod(str) {
+  let target = git;
+  const segs = str.split(".").forEach(seg => (target = target[seg]));
+  return target;
+}
+
 test.afterEach.always(t => t.context.sandbox.restore());
 
 [git.show, git.push, git.pull].forEach(fn => {
