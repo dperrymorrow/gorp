@@ -1,5 +1,6 @@
 "use strict";
 
+const childProcess = require("child-process-promise");
 const git = require("../../lib/git");
 const term = require("../../lib/terminal");
 const stubs = require("../stubs");

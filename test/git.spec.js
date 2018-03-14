@@ -2,6 +2,7 @@
 
 const git = require("../lib/git");
 const term = require("../lib/terminal");
+const childProcess = require("child-process-promise");
 const stubs = require("./stubs");
 const sinon = require("sinon");
 const test = require("ava");
@@ -11,19 +12,25 @@ test.beforeEach(t => {
   t.context.sandbox
     .stub(childProcess, "exec")
     .rejects(`You need to stub git or childProcess.exec.`);
-  // t.context.sandbox.stub(git.branch, "current").resolves("master");
-  // t.context.sandbox.stub(git, "pull").resolves("");
-  // t.context.sandbox.stub(git, "push").resolves("");
-  // t.context.sandbox.stub(git, "remote").resolves("git@github.com:dperrymorrow/gorp.git");
 });
 
 test.afterEach.always(t => t.context.sandbox.restore());
 
-// Object.keys(commands).forEach(key => {
-//   if (key.includes(".")) {
-//   } else {
-//     test(`has method ${key}`, t => {
-//       t.is(typeof git[key], "function");
-//     });
-//   }
+[git.show, git.push, git.pull].forEach(fn => {
+  test("takes single parameter", async t => {
+    childProcess.exec.resolves({ stdout: "resolved" });
+    t.is(await fn("param"), "resolved");
+    t.is(childProcess.exec.lastCall.args[0].includes("param"), true);
+  });
+});
+
+// ["remote", "fetch", "status", "branch.remote", "branch.current", "branch.local"].forEach(key => {
+//   test("no params", async t => {
+//     const keys = key.split(".");
+//     let target = git;
+//     keys.forEach(seg => (target = target[seg]));
+//     childProcess.exec.resolves({ stdout: "resolves" });
+//     t.is(await target(), "resolves");
+//     t.is(childProcess.exec.lastCall.args[0], git.cmdStrings.remote);
+//   });
 // });
