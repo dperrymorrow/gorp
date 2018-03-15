@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 "use strict";
 
-const _ = require("../lib/util/lodash");
 const quiz = require("inquirer");
 const term = require("../lib/terminal");
 const prompts = require("../lib/prompt");
 const chalk = require("chalk");
 const args = process.argv;
-const flag = _.last(args);
+const flag = args.pop();
 
 process.on("unhandledRejection", (reason, p) => {
   console.log(chalk.red(reason), p);
