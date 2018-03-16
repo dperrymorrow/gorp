@@ -33,7 +33,7 @@ async function summary() {
 
   console.log("  Gorp:", info.version, "| Branch:", chalk.bold.green(current));
 
-  if (ahead === 0 && behind == 0 && stagedCount === 0 && dirtyCount === 0) {
+  if (ahead === 0 && behind === 0 && stagedCount === 0 && dirtyCount === 0) {
     console.log(chalk.green.bold("  All clean & up to date"));
   } else {
     console.log(
