@@ -15,6 +15,7 @@ process.on("unhandledRejection", (reason, p) => {
 });
 
 async function run(cmd = null) {
+  await term.init();
   await summary();
   const choices = await prompts();
   const match = choices.find(choice => choice.cmd === cmd);
